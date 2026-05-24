@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ConvertCurrency</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="converter" aria-labelledby="app-title">
+      <div class="converter__header">
+        <p class="eyebrow">Real-time exchange rates</p>
+        <h1 id="app-title">ConvertCurrency</h1>
+        <p class="subtitle">แปลงสกุลเงินหลักทั่วโลกด้วยข้อมูลล่าสุดจาก API ฟรี</p>
+      </div>
+
+      <form id="converter-form" class="converter__form">
+        <div class="exchange-grid">
+          <label class="money-box money-box--input" for="amount-input">
+            <span class="money-box__label">จาก</span>
+            <div class="money-box__control">
+              <div class="money-box__amount">
+                <span id="from-symbol" class="currency-symbol" aria-hidden="true">$</span>
+                <input id="amount-input" name="amount" type="number" min="0" step="0.01" value="1" inputmode="decimal" required aria-label="จำนวนเงินต้นทาง">
+              </div>
+              <select id="from-currency" class="native-select" name="from" aria-label="สกุลเงินต้นทาง"></select>
+              <div id="from-picker" class="currency-picker"></div>
+            </div>
+          </label>
+
+          <button class="swap-button" id="swap-button" type="button" aria-label="สลับสกุลเงิน">
+            <span aria-hidden="true">⇄</span>
+          </button>
+
+          <label class="money-box money-box--output" for="converted-output">
+            <span class="money-box__label">เป็น</span>
+            <div class="money-box__control">
+              <div class="money-box__amount">
+                <span id="to-symbol" class="currency-symbol" aria-hidden="true">฿</span>
+                <output id="converted-output" class="converted-output" for="amount-input from-currency to-currency">-</output>
+              </div>
+              <select id="to-currency" class="native-select" name="to" aria-label="สกุลเงินปลายทาง"></select>
+              <div id="to-picker" class="currency-picker"></div>
+            </div>
+          </label>
+        </div>
+      </form>
+
+      <section class="rate-panel" aria-live="polite">
+        <p id="rate-info" class="rate-info">เลือกสกุลเงินเพื่อดูอัตราแลกเปลี่ยน</p>
+        <p id="status-message" class="status-message" role="status"></p>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

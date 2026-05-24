@@ -1,0 +1,373 @@
+:root {
+  color-scheme: light;
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --surface-strong: #f7fafc;
+  --text: #17202a;
+  --muted: #607082;
+  --line: #d8e1ea;
+  --accent: #0f766e;
+  --accent-strong: #0b5f59;
+  --accent-soft: #d8f3ef;
+  --danger: #b42318;
+  --shadow: 0 20px 60px rgba(32, 43, 54, 0.13);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, 0.11), transparent 34%),
+    linear-gradient(315deg, rgba(180, 83, 9, 0.12), transparent 30%),
+    var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 32px 16px;
+}
+
+.converter {
+  width: min(100%, 860px);
+  padding: 32px;
+  border: 1px solid rgba(216, 225, 234, 0.8);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.converter__header {
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.35rem);
+  line-height: 1;
+}
+
+.subtitle {
+  max-width: 54ch;
+  margin: 12px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.converter__form {
+  margin: 0;
+}
+
+.exchange-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 52px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+.money-box {
+  display: grid;
+  gap: 10px;
+  min-height: 176px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-strong);
+  cursor: text;
+}
+
+.money-box:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.money-box__label {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 750;
+}
+
+.money-box__control {
+  display: grid;
+  gap: 14px;
+  align-items: start;
+}
+
+.money-box__amount {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.currency-symbol {
+  color: var(--accent);
+  font-size: clamp(1.65rem, 4vw, 2.45rem);
+  font-weight: 850;
+  line-height: 1;
+}
+
+.money-box input,
+.converted-output {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1;
+  outline: none;
+}
+
+.money-box input::placeholder {
+  color: #9aa8b5;
+}
+
+.converted-output {
+  display: block;
+  white-space: nowrap;
+  overflow-wrap: anywhere;
+}
+
+.money-box select {
+  font: inherit;
+}
+
+.native-select {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.currency-picker {
+  position: relative;
+  width: min(100%, 132px);
+}
+
+.currency-picker__button,
+.currency-picker__option {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  gap: 9px;
+  align-items: center;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.currency-picker__button {
+  min-height: 48px;
+  padding: 0 10px;
+}
+
+.currency-picker__button:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.currency-picker__chevron {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.currency-picker__menu {
+  position: absolute;
+  z-index: 5;
+  display: none;
+  width: 260px;
+  max-height: 260px;
+  margin-top: 8px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 18px 38px rgba(32, 43, 54, 0.18);
+}
+
+.currency-picker.is-open .currency-picker__menu {
+  display: grid;
+  gap: 4px;
+}
+
+.money-box .currency-picker__search {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 650;
+  line-height: 1.2;
+  outline: none;
+}
+
+.money-box .currency-picker__search:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.currency-picker__options {
+  display: grid;
+  gap: 4px;
+  max-height: 206px;
+  overflow-y: auto;
+}
+
+.currency-picker__option {
+  grid-template-columns: 24px 54px minmax(0, 1fr);
+  min-height: 40px;
+  padding: 0 9px;
+  border-color: transparent;
+  text-align: left;
+}
+
+.currency-picker__option[hidden] {
+  display: none;
+}
+
+.currency-picker__option:hover,
+.currency-picker__option.is-selected {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.currency-picker__name {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.currency-picker__empty {
+  margin: 8px 6px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.currency-flag {
+  width: 24px;
+  height: 16px;
+  border-radius: 2px;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px rgba(23, 32, 42, 0.1);
+}
+
+.swap-button {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-size: 1.55rem;
+  font-weight: 750;
+  box-shadow: 0 12px 28px rgba(15, 118, 110, 0.22);
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.swap-button:hover {
+  background: var(--accent-strong);
+  transform: translateY(-1px);
+}
+
+.rate-panel {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  border-radius: 8px;
+  background: #101820;
+  color: white;
+}
+
+.rate-info,
+.status-message {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.rate-info {
+  color: #d3dde7;
+}
+
+.status-message {
+  color: #a8bac8;
+}
+
+.status-message.is-error {
+  color: #ffb4ab;
+  font-weight: 650;
+}
+
+@media (max-width: 760px) {
+  .converter {
+    padding: 24px;
+  }
+
+  .exchange-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .swap-button {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+
+  .swap-button:hover {
+    transform: rotate(90deg) translateX(-1px);
+  }
+}
+
+@media (max-width: 480px) {
+  .money-box {
+    min-height: 190px;
+  }
+
+  .currency-picker {
+    width: 100%;
+  }
+
+  .currency-picker__menu {
+    width: 100%;
+  }
+}
