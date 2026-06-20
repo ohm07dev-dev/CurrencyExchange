@@ -48,7 +48,8 @@
         "JPY to THB currency conversion",
         "GBP to THB currency conversion",
         "Currency swap",
-        "Searchable currency dropdown"
+        "Searchable currency dropdown",
+        "Card foreign transaction fee estimate"
       ]
     }
   </script>
@@ -91,20 +92,31 @@
             </div>
           </label>
         </div>
+        <section class="fee-panel" aria-label="Calculation options">
+          <h2 class="fee-panel__title">Calculation options</h2>
+          <div class="fee-panel__controls">
+            <label class="fee-toggle" for="fee-enabled" data-tooltip="ประมาณค่าธรรมเนียมบัตรไทยเมื่อจ่ายเป็นสกุลเงินต่างประเทศ หลายบัตรอาจคิดไม่เกิน 2.5%">
+              <input id="fee-enabled" type="checkbox">
+              <span>Add foreign card fee</span>
+            </label>
+
+            <label class="fee-rate is-hidden" id="fee-rate-field" for="fee-rate">
+              <span>Fee rate (%)</span>
+              <span class="fee-rate__input">
+                <input id="fee-rate" type="number" min="0" max="2.5" step="0.1" value="2.5" inputmode="decimal" disabled>
+              </span>
+            </label>
+          </div>
+        </section>
       </form>
 
       <section class="rate-panel" aria-live="polite">
         <p id="rate-info" class="rate-info">เลือกสกุลเงินเพื่อดูอัตราแลกเปลี่ยน</p>
         <p id="status-message" class="status-message" role="status"></p>
       </section>
-
-      <section class="seo-content" aria-label="Popular currency searches">
-        <h2>Currency converter for popular exchange rates</h2>
-        <p>ค้นหาและแปลงค่าเงินคู่ยอดนิยม เช่น USD to THB, EUR to THB, JPY to THB, GBP to THB, KRW to THB และ THB to USD</p>
-      </section>
     </section>
   </main>
 
-  <script type="module" src="js/app.js"></script>
+  <script defer src="js/app.bundle.js"></script>
 </body>
 </html>

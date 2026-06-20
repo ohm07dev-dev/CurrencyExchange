@@ -12,6 +12,9 @@ export function getElements() {
     fromSymbol: document.querySelector("#from-symbol"),
     toSymbol: document.querySelector("#to-symbol"),
     swapButton: document.querySelector("#swap-button"),
+    feeEnabled: document.querySelector("#fee-enabled"),
+    feeRateInput: document.querySelector("#fee-rate"),
+    feeRateField: document.querySelector("#fee-rate-field"),
     rateInfo: document.querySelector("#rate-info"),
     statusMessage: document.querySelector("#status-message")
   };
@@ -57,12 +60,19 @@ export function showStatus(elements, message, type = "info") {
 
 export function renderResult(elements, result) {
   const amount = formatNumber(result.amount);
+  const baseConvertedAmount = formatNumber(result.baseConvertedAmount);
   const convertedAmount = formatNumber(result.convertedAmount);
   const rate = formatNumber(result.rate, 6);
 
   elements.convertedOutput.value = convertedAmount;
   elements.convertedOutput.textContent = convertedAmount;
-  elements.rateInfo.textContent = `${amount} ${result.fromCurrency} = ${convertedAmount} ${result.toCurrency} | 1 ${result.fromCurrency} = ${rate} ${result.toCurrency} | อัปเดตล่าสุด ${formatDate(result.updatedAt)}`;
+
+  if (result.cardFeeEnabled && result.cardFeePercent > 0) {
+    elements.rateInfo.textContent = `1 ${result.fromCurrency} = ${rate} ${result.toCurrency} | ค่าธรรมเนียมบัตร ${formatCompactNumber(result.cardFeePercent)}% | อัปเดตล่าสุด ${formatDate(result.updatedAt)}`;
+    return;
+  }
+
+  elements.rateInfo.textContent = `1 ${result.fromCurrency} = ${rate} ${result.toCurrency} | อัปเดตล่าสุด ${formatDate(result.updatedAt)}`;
 }
 
 export function clearResult(elements) {
@@ -222,6 +232,12 @@ function formatNumber(value, maximumFractionDigits = 2) {
   return new Intl.NumberFormat("th-TH", {
     minimumFractionDigits: 2,
     maximumFractionDigits
+  }).format(value);
+}
+
+function formatCompactNumber(value) {
+  return new Intl.NumberFormat("th-TH", {
+    maximumFractionDigits: 2
   }).format(value);
 }
 
