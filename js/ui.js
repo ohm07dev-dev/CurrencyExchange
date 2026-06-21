@@ -15,6 +15,7 @@ export function getElements() {
     feeEnabled: document.querySelector("#fee-enabled"),
     feeRateInput: document.querySelector("#fee-rate"),
     feeRateField: document.querySelector("#fee-rate-field"),
+    themeToggle: document.querySelector("#theme-toggle"),
     rateInfo: document.querySelector("#rate-info"),
     statusMessage: document.querySelector("#status-message")
   };

@@ -57,9 +57,19 @@
 <body>
   <main class="app-shell">
     <section class="converter" aria-labelledby="app-title">
-      <div class="converter__header">
-        <p class="eyebrow">Real-time exchange rates</p>
-        <h1 id="app-title">ExchangeCurrency</h1>
+      <div class="converter__topbar">
+        <div class="converter__header">
+          <p class="eyebrow">Real-time exchange rates</p>
+          <h1 id="app-title">ExchangeCurrency</h1>
+        </div>
+
+        <label class="theme-toggle" for="theme-toggle" aria-label="Toggle dark mode">
+          <input id="theme-toggle" type="checkbox">
+          <span class="theme-toggle__track" aria-hidden="true">
+            <span class="theme-toggle__thumb"></span>
+          </span>
+          <span class="theme-toggle__text">Dark</span>
+        </label>
       </div>
 
       <form id="converter-form" class="converter__form">

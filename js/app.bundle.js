@@ -132,6 +132,7 @@
       feeEnabled: document.querySelector("#fee-enabled"),
       feeRateInput: document.querySelector("#fee-rate"),
       feeRateField: document.querySelector("#fee-rate-field"),
+      themeToggle: document.querySelector("#theme-toggle"),
       rateInfo: document.querySelector("#rate-info"),
       statusMessage: document.querySelector("#status-message")
     };
@@ -346,6 +347,7 @@
   async function init() {
     elements = getElements();
     bindEvents();
+    initTheme();
     setFeeControls(elements.feeEnabled.checked);
     await setupCurrencySelectors();
     await convertCurrency();
@@ -375,8 +377,27 @@
       clampFeeInput();
       convertCurrency();
     }, 250));
+
+    elements.themeToggle.addEventListener("change", () => {
+      setTheme(elements.themeToggle.checked);
+    });
   }
 
+  function initTheme() {
+    const savedTheme = window.localStorage.getItem("exchangeCurrencyTheme");
+    const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+    const useDark = savedTheme ? savedTheme === "dark" : Boolean(prefersDark);
+    elements.themeToggle.checked = useDark;
+    setTheme(useDark, false);
+  }
+
+  function setTheme(useDark, shouldPersist = true) {
+    document.body.classList.toggle("is-dark", useDark);
+
+    if (shouldPersist) {
+      window.localStorage.setItem("exchangeCurrencyTheme", useDark ? "dark" : "light");
+    }
+  }
   async function setupCurrencySelectors() {
     const currencies = await getCurrencyOptions();
     renderCurrencyOptions(elements.fromSelect, currencies, DEFAULT_FROM_CURRENCY);
